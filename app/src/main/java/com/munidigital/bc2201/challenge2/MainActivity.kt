@@ -1,18 +1,28 @@
 package com.munidigital.bc2201.challenge2
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.munidigital.bc2201.challenge2.databinding.ActivityMainBinding
+import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
+    lateinit private var loginViewModel: LoginViewModel
+    lateinit private var context: Context
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        context = this
 
         binding.rvChat.layoutManager = LinearLayoutManager(this)
         val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -33,6 +43,24 @@ class MainActivity : AppCompatActivity() {
         binding.ivSend.setOnClickListener {
             sendMessage(binding, viewModel)
         }
+    }
+
+    //Cambio el menu del toolbar
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.maint_toolbar, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    //en caso de seleccionar algun item
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.iDeslog -> {//Se desloguea y vuelve a la pantalla de logueo
+                loginViewModel.logout()
+                startActivity(Intent(context, LoginActivity::class.java))
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun sendMessage(binding:ActivityMainBinding, viewModel: MainViewModel){

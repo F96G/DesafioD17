@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.TextView
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 
 class SplashActivity : AppCompatActivity() {
@@ -17,12 +19,17 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         displayAppVersion()
+        val loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            // TODO: Deberian comprobar si existe un usuario cargado. Si no existe deberia cargar
-            // la activity de login. Caso contrario la principal del bot
-            startActivity(Intent(this, MainActivity::class.java))
-            finish() // Agregar finish para que al volver atras se cierre la app
+            when{
+                    //Ya se logueo
+                (!loginViewModel.state.value?.loginError!! && loginViewModel.state.value?.user != null)->
+                    startActivity(Intent(this, MainActivity::class.java))
+                //No se logueo
+                else -> startActivity(Intent(this, LoginActivity::class.java))
+            }
+            finish()
         }, SPLASH_DURATION)
 
     }
