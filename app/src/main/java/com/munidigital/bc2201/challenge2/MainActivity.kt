@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun manejarListaVacia(chatList: MutableList<Mensaje>, binding: ActivityMainBinding){
+    private fun manejarListaVacia(chatList: MutableList<String>, binding: ActivityMainBinding){
         //Cuando la lista esta vacia se muestra un empty
         if (chatList.isEmpty())
             binding.tvEmptyView.visibility = View.VISIBLE

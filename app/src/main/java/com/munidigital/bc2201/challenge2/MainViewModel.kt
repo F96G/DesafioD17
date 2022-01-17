@@ -8,14 +8,14 @@ import androidx.lifecycle.ViewModel
 
 
 class MainViewModel: ViewModel() {
-    private val _mensajeList = MutableLiveData<MutableList<Mensaje>>()
-    private val list = mutableListOf<Mensaje>()
+    private val _mensajeList = MutableLiveData<MutableList<String>>()
+    private val list = mutableListOf<String>()
     private val respuestas = Respuestas()
     var yaRespondi = true
-    val mensajeList: LiveData<MutableList<Mensaje>> get() =_mensajeList
+    val mensajeList: LiveData<MutableList<String>> get() =_mensajeList
 
     init {
-        _mensajeList.value = mutableListOf<Mensaje>()
+        _mensajeList.value = mutableListOf<String>()
     }
 
     fun respond(){
@@ -33,14 +33,14 @@ class MainViewModel: ViewModel() {
     }
 
     private fun addMensaje(mensaje:String){
-        val lista = mutableListOf<Mensaje>()
+        val lista = mutableListOf<String>()
         if (list.size > 0) {
             for (i in 0..list.size - 1) {
                 lista.add(list.get(i))
             }
         }
-        list.add(Mensaje(mensaje))
-        lista.add(Mensaje(mensaje))
+        list.add(mensaje)
+        lista.add(mensaje)
 
         _mensajeList.value = lista
     }

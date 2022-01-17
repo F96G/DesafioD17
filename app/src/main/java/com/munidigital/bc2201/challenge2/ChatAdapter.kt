@@ -9,14 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.munidigital.bc2201.challenge2.databinding.ChatListaBinding
 
 
-class ChatAdapter(): androidx.recyclerview.widget.ListAdapter<Mensaje, ChatAdapter.ChatViewHolder>(DiffCallbak){
+class ChatAdapter(): androidx.recyclerview.widget.ListAdapter<String, ChatAdapter.ChatViewHolder>(DiffCallbak){
     //Permite saber que item se agrego o edito o se borro
-    companion object DiffCallbak : DiffUtil.ItemCallback<Mensaje>(){
-        override fun areItemsTheSame(oldItem: Mensaje, newItem: Mensaje): Boolean {
-            return oldItem.message == newItem.message
+    companion object DiffCallbak : DiffUtil.ItemCallback<String>(){
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem.equals(newItem)
         }
 
-        override fun areContentsTheSame(oldItem: Mensaje, newItem: Mensaje): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
     }
@@ -37,13 +37,14 @@ class ChatAdapter(): androidx.recyclerview.widget.ListAdapter<Mensaje, ChatAdapt
     //Le paso el view para que luego pinte los elementos
     inner class ChatViewHolder(private val binding: ChatListaBinding): RecyclerView.ViewHolder(binding.root) {
         //Son todos los view que componen al adapter y que deben pintarse
-        fun bind(chat: Mensaje, position: Int) {
-            binding.tvMessage.text = chat.message
+        fun bind(chat: String, position: Int) {
+            binding.tvMessage.text = chat
             if (0 == position%2){
                 binding.tvMessage.setBackgroundColor(Color.parseColor("#6FD4E8BE"))
                 binding.tvMessage.gravity = Gravity.END
             }else{
                 binding.tvMessage.setBackgroundColor(Color.parseColor("#5B85F1FF"))
+                binding.tvMessage.gravity = Gravity.START
             }
         }
     }
