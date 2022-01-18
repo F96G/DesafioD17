@@ -9,13 +9,19 @@ import androidx.lifecycle.ViewModel
 
 class MainViewModel: ViewModel() {
     private val _mensajeList = MutableLiveData<MutableList<String>>()
-    private val list = mutableListOf<String>()
+    private val list = mutableListOf<String>()  //VER COMO NO UTILIZAR DOS LISTAS IGUALES
     private val respuestas = Respuestas()
     var yaRespondi = true
     val mensajeList: LiveData<MutableList<String>> get() =_mensajeList
 
     init {
-        _mensajeList.value = mutableListOf<String>()
+        refresh()
+    }
+
+    fun refresh(){
+        list.clear()
+        _mensajeList.value = list
+        respuestas.reload()
     }
 
     fun respond(){

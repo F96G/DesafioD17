@@ -16,7 +16,9 @@ import kotlin.math.log
 class MainActivity : AppCompatActivity() {
     lateinit private var loginViewModel: LoginViewModel
     lateinit private var context: Context
+    lateinit private var  viewModel: MainViewModel
 
+    //Esta aplicacion se basa en el capitulo de los simpsons https://www.youtube.com/watch?v=boXb5XRRarA para buscar un poco de humor
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -25,7 +27,7 @@ class MainActivity : AppCompatActivity() {
         context = this
 
         binding.rvChat.layoutManager = LinearLayoutManager(this)
-        val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val adapter = ChatAdapter()
 
 
@@ -59,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(Intent(context, LoginActivity::class.java))
                 finish()
             }
+            R.id.iReload -> viewModel.refresh()
         }
         return super.onOptionsItemSelected(item)
     }
