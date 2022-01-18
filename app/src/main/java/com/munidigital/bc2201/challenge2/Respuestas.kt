@@ -22,7 +22,7 @@ class Respuestas {
             return listaRespuestas.random()
         }else if (cantidadRespuestas == 3) {
             cantidadRespuestas += 1
-            return listaRespuestas.random() + "\nEspero que os halla iluminado"
+            return listaRespuestas.random() + "\nEspero que os haya iluminado"
         }else
             return "Gracias vuelva pronto"
     }

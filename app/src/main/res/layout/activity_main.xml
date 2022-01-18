@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:padding="16dp"
-                android:text="Soy el jefe de los minisuper, podeis hacereme TRES preguntas"
+                android:text="Soy el jefe de los minisuper, podeis hacerme TRES preguntas"
                 android:textColor="@color/black"
                 android:textSize="24sp"
                 android:visibility="gone"
