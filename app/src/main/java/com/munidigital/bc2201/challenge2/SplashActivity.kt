@@ -9,6 +9,8 @@ import android.os.Looper
 import android.widget.TextView
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class SplashActivity : AppCompatActivity() {
@@ -19,12 +21,12 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         displayAppVersion()
-        val loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        val user =  Firebase.auth.currentUser
 
         Handler(Looper.getMainLooper()).postDelayed({
             when{
                     //Ya se logueo
-                (!loginViewModel.state.value?.loginError!! && loginViewModel.state.value?.user != null)->
+                (user != null)->
                     startActivity(Intent(this, MainActivity::class.java))
                 //No se logueo
                 else -> startActivity(Intent(this, LoginActivity::class.java))

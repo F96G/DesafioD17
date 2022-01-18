@@ -16,6 +16,10 @@ import com.google.firebase.auth.FirebaseUser
 //bc2201
 class LoginActivity : AppCompatActivity() {
 
+    companion object{
+        val KEY = "Key"
+    }
+
     lateinit var viewModel: LoginViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,9 +32,10 @@ class LoginActivity : AppCompatActivity() {
         val etPass = findViewById<EditText>(R.id.et_pass)
         val btnLogin = findViewById<Button>(R.id.btn_login)
 
+        if (intent.getBooleanExtra(KEY,false))
+            viewModel.logout()
 
         viewModel.state.observe(this) { state ->
-
             when {
                 (!state.loginError && state.user != null) -> { // Usuario logueado
                     onLogged(state.user) // Loguea la info del usuario...

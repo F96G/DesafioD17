@@ -10,11 +10,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.munidigital.bc2201.challenge2.databinding.ActivityMainBinding
 import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
-    lateinit private var loginViewModel: LoginViewModel
     lateinit private var context: Context
     lateinit private var  viewModel: MainViewModel
 
@@ -23,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        loginViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
         context = this
 
         binding.rvChat.layoutManager = LinearLayoutManager(this)
@@ -57,8 +57,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.iDeslog -> {//Se desloguea y vuelve a la pantalla de logueo
-                loginViewModel.logout()
-                startActivity(Intent(context, LoginActivity::class.java))
+                intent = Intent(context, LoginActivity::class.java)
+                intent.putExtra(LoginActivity.KEY, true)
+                startActivity(intent)
                 finish()
             }
             R.id.iReload -> viewModel.refresh()

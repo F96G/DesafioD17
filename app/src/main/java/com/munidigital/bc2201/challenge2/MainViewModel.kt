@@ -40,7 +40,7 @@ class MainViewModel: ViewModel() {
         val lista = mutableListOf<String>()
         _mensajeList.value?.let {
             if (it.size > 0) {
-                for (i in 0..it.size - 1) {
+                for (i in 0..it.size-1) {
                     lista.add(it.get(i))
                 }
             }
