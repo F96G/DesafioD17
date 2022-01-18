@@ -38,10 +38,13 @@ class MainViewModel: ViewModel() {
 
     private fun addMensaje(mensaje:String){
         val lista = mutableListOf<String>()
-        if (_mensajeList.value?.size!! > 0) {
-            for (i in 0.._mensajeList.value?.size!! - 1) {
-                lista.add(_mensajeList.value!!.get(i))
+        _mensajeList.value?.let {
+            if (it.size > 0) {
+                for (i in 0..it.size - 1) {
+                    lista.add(it.get(i))
+                }
             }
+
         }
         lista.add(mensaje)
 
